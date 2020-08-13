@@ -1,0 +1,685 @@
+@import "./reset.css";
+@import "../fonts/stylesheet.css";
+
+//Colors[start]
+$primary-color: #ebecf0;
+$p-light-color: #99d066;
+$p-dark-color: #689f38;
+$modal-color: #606060c4;
+$warning-color: #ef5350;
+$w-dark-color: #e53935;
+$succes-color: #43a047;
+$sc-dark-color: #365e34;
+//Colors[end]
+header {
+    border-radius: 0px 0px 10px 10px;
+    background-color: $p-dark-color !important;
+    box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+    -webkit-box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+}
+body {
+    background-color: $primary-color !important;
+}
+
+//Animations[start]
+%animation {
+    transition: all 0.2s ease-in-out;
+}
+%shadows {
+    box-shadow: 3px 3px 5px 0px rgba(0, 0, 0, 0.55), -3px -3px 5px 0px rgba(255, 255, 255, 0.55);
+    border-radius: 50px;
+    &:hover {
+        -webkit-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+        -moz-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+    }
+    &:active,
+    &:focus {
+        animation: btn-shadow 0.1s ease alternate;
+        -webkit-box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        -moz-box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        -webkit-text-shadow: 2px 2px 4px #000000;
+        -moz-text-shadow: 2px 2px 4px #000000;
+        text-shadow: 2px 2px 4px #000000;
+    }
+    &:disabled {
+        background-color: #cccccc4d;
+        color: #666666;
+        -webkit-box-shadow: unset;
+        -moz-box-shadow: unset;
+        box-shadow: unset;
+        -webkit-text-shadow: unset;
+        -moz-text-shadow: unset;
+        text-shadow: unset;
+        animation: unset;
+    }
+}
+.list-enter-active {
+    transition: 0.4s ease;
+}
+.list-leave-active {
+    transition: opacity 0.4s ease;
+    position: absolute;
+    z-index: -1;
+    top: -23vh;
+    right: 5%;
+}
+.list-enter,
+.list-leave-to {
+    opacity: 0;
+}
+.list-move {
+    transition: 1s ease;
+}
+.msg-enter-active,
+.msg-leave-active {
+    transition: all 0.5s ease;
+}
+.msg-enter,
+.msg-leave-to {
+    opacity: 0;
+    margin-top: 0;
+}
+.slide-l-enter-active,
+.slide-l-leave-active,
+.slide-r-enter-active,
+.slide-r-leave-active {
+    transition-duration: 0.6s;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+    .btn-back {
+        top: -10vh;
+        transition: unset;
+        position: fixed;
+    }
+}
+
+.slide-l-enter,
+.slide-r-leave-active {
+    transform: translateX(100%);
+}
+
+.slide-l-leave-active,
+.slide-r-enter {
+    transform: translateX(-100%);
+}
+.nav-enter-active,
+.nav-leave-active {
+    transition: opacity 1s ease;
+}
+.nav-enter,
+.nav-leave-to {
+    button,
+    input {
+        -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+        -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+    }
+    opacity: 0;
+}
+.dialogAnimation-enter-active,
+.dialogAnimation-leave-active {
+    .modal-card {
+        opacity: 0;
+        transition: all 1s ease;
+    }
+}
+.dialogAnimation-enter,
+.dialogAnimation-leave-to {
+    .modal-card {
+        opacity: 0;
+    }
+}
+//Animations[end]
+
+//Main-styles[start]
+main {
+    height: 90vh;
+    overflow-x: hidden;
+}
+.focus {
+    @extend %animation;
+}
+.btn-primary {
+    background-color: unset;
+    color: white;
+}
+.btn-warning {
+    color: white;
+    &:hover {
+        color: $w-dark-color;
+    }
+}
+.btn-succes {
+    color: white;
+    &:hover {
+        color: $sc-dark-color;
+    }
+}
+.p-dark {
+    background-color: $p-dark-color;
+}
+.p-light {
+    background-color: $p-light-color;
+}
+h3 {
+    font: 1.3em robotoblack, sans-serif;
+}
+p,
+li,
+textarea,
+label {
+    font: 1em robotoregular, sans-serif;
+}
+label {
+    font: 0.8em;
+}
+li {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+button {
+    @extend %animation, .btn-primary, %shadows;
+    padding: 10px 50px;
+    border: none;
+    font: 1em robotomedium, sans-serif;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0);
+}
+.btn-icon {
+    border-radius: 10px;
+    height: 5vh;
+    width: 5vh;
+    padding: 0;
+    box-sizing: border-box;
+    i {
+        margin: 0 auto;
+    }
+}
+@keyframes btn-shadow {
+    0% {
+        -webkit-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+        -moz-box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+        box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.55), -2px -2px 3px 0px rgba(255, 255, 255, 0.55);
+    }
+    25% {
+        -webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+        -moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+        box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.55), -0px -0px 0px 0px rgba(255, 255, 255, 0.55);
+    }
+    50% {
+        -webkit-box-shadow: unset;
+        -moz-box-shadow: unset;
+        box-shadow: unset;
+    }
+    100% {
+        -webkit-box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        -moz-box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+    }
+}
+header {
+    height: 10vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background-color: $primary-color;
+    z-index: 1;
+}
+
+.AIpopup {
+    background-color: $p-dark-color;
+}
+
+.logo {
+    width: 3%;
+    cursor: pointer;
+    img {
+        width: 100%;
+    }
+}
+.content {
+    margin: 0 auto;
+    padding: 10vh 15%;
+    .createCard {
+        margin-top: 1.5vh;
+    }
+}
+.row {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    align-items: baseline;
+}
+.col {
+    width: calc(100% / 3);
+    padding: 1vh 2%;
+    box-sizing: border-box;
+}
+.createCard {
+    width: calc(100% / 3.4);
+    position: relative;
+    display: flex;
+    .btn-icon {
+        margin-left: 10%;
+    }
+    input {
+        @extend %animation, %shadows, p;
+        width: 85%;
+        padding: 1vh 5%;
+        display: block;
+        box-sizing: border-box;
+        color: white;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        &::placeholder {
+            /* Chrome, Firefox, Opera, Safari 10.1+ */
+            color: white;
+            opacity: 1; /* Firefox */
+        }
+        &:-ms-input-placeholder {
+            /* Internet Explorer 10-11 */
+            color: white;
+        }
+        &::-ms-input-placeholder {
+            /* Microsoft Edge */
+            color: white;
+        }
+    }
+    .msg {
+        margin-top: 3.5em;
+        margin-left: 1em;
+        padding: 2vh;
+        position: absolute;
+        border-radius: 10px;
+        background-color: $warning-color;
+        z-index: 1;
+        p {
+            font-size: 0.9em;
+        }
+        &:after {
+            content: "";
+            width: 0;
+            height: 0;
+            top: 0;
+            margin-top: -0.6em;
+            position: absolute;
+            border-left: 0.6em solid transparent;
+            border-right: 0.6em solid transparent;
+            border-bottom: 0.6em solid $warning-color;
+        }
+    }
+}
+.white input,
+.white button {
+    color: black;
+    &::placeholder {
+        /* Chrome, Firefox, Opera, Safari 10.1+ */
+        color: black;
+        opacity: 1; /* Firefox */
+    }
+    &:-ms-input-placeholder {
+        /* Internet Explorer 10-11 */
+        color: black;
+    }
+    &::-ms-input-placeholder {
+        /* Microsoft Edge */
+        color: black;
+    }
+}
+.task-list {
+    width: 50%;
+    margin-top: 3vh;
+    li {
+        overflow: unset;
+        white-space: unset;
+        text-overflow: unset;
+    }
+}
+.focus {
+    -webkit-text-shadow: 2px 2px 4px #000000;
+    -moz-text-shadow: 2px 2px 4px #000000;
+    text-shadow: 2px 2px 4px #000000;
+    cursor: pointer;
+    &:hover {
+        -webkit-text-shadow: 0px 0px 0px #000000;
+        -moz-text-shadow: 0px 0px 0px #000000;
+        text-shadow: 0px 0px 0px #000000;
+    }
+}
+
+////Card[start]
+.card {
+    @extend .p-light;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 0px 9px -4px rgba(0, 0, 0, 0.75);
+}
+.card-title {
+    @extend .p-dark;
+    height: 7vh;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    text-transform: uppercase;
+    border-radius: 10px;
+    -webkit-box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.75);
+    box-shadow: 0px 5px 7px -3px rgba(0, 0, 0, 0.75);
+    h3 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+.card-text {
+    height: 21vh;
+    padding: 15px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    h3 {
+        font-size: 1.2em;
+    }
+    ul {
+        width: 100%;
+    }
+    p {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+.card-actions {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    box-sizing: border-box;
+    button {
+        margin-bottom: 2vh;
+        margin-right: 5%;
+        color: white;
+        display: flex;
+        align-items: center;
+        &:last-of-type {
+            i {
+                margin-left: 5px;
+            }
+        }
+    }
+}
+////Card[end]
+
+////Popup[start]
+.modal {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: $modal-color;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+.modal-card {
+    @extend .p-dark;
+    width: 20%;
+    padding: 3vh 1.5%;
+    color: white;
+    border-radius: 10px;
+}
+.modal-card-actions {
+    margin-top: 4vh;
+    display: flex;
+    justify-content: space-around;
+}
+.onBlack {
+    width: 60%;
+    position: absolute;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    textarea {
+        width: 70%;
+        min-height: 1.4em;
+        height: 150px;
+        border-radius: 10px;
+    }
+}
+.onBlack-actions {
+    width: 25%;
+    margin-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    button {
+        margin-bottom: 2vh;
+        text-align: left;
+    }
+    .btn-icon {
+        text-align: center;
+        margin-right: 20%;
+    }
+}
+.btn-back {
+    width: 50px;
+    height: 100vh;
+    bottom: 0;
+    left: -5px;
+    position: fixed;
+    border-radius: 0;
+    background-color: $p-light-color;
+    opacity: 0.5;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    animation: back-anim 0.8s ease alternate;
+    animation-delay: 0.6s;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    &:hover {
+        left: 0;
+    }
+}
+@keyframes back-anim {
+    0% {
+        left: 0;
+    }
+    25% {
+        left: -25px;
+    }
+    50% {
+        left: 0;
+    }
+    100% {
+        left: -5px;
+    }
+}
+////Popup[end]
+
+.buttons {
+    width: calc(100% / 3.4);
+    display: flex;
+    justify-content: space-between;
+}
+//Main-styles[end]
+
+.container-task {
+    margin-bottom: 1.5rem;
+    padding-left: 3rem;
+    position: relative;
+    display: block;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    i {
+        height: 100%;
+        width: 2rem;
+        right: -2rem;
+        top: 0;
+        position: absolute;
+    }
+    p {
+        padding-top: 0.3rem;
+    }
+    &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        height: 5px;
+        box-shadow: inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55), inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55);
+        border-radius: 50px;
+    }
+}
+//Checkbox[start]
+/* Hide the browser's default checkbox */
+.container-task input {
+    width: 0;
+    height: 0;
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+/* Create a custom checkbox */
+.checkmark {
+    @extend %shadows;
+    position: absolute;
+    top: 0.5rem;
+    left: 0.5rem;
+    height: 1.5rem;
+    width: 1.5rem;
+    border-radius: 10px;
+}
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+/* Show the checkmark when checked */
+.container-task input:checked ~ .checkmark:after {
+    display: block;
+}
+/* Style the checkmark/indicator */
+.container-task .checkmark:after {
+    width: 0.3rem;
+    height: 0.8rem;
+    left: 0.55rem;
+    top: 0.15rem;
+    border: solid $p-dark-color;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+//Checkbox[end]
+
+// Scrollbar[start]
+/* width */
+::-webkit-scrollbar {
+    width: 20px;
+    border-radius: 50px;
+    box-shadow: inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55), inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55);
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    border-radius: 50px;
+    box-shadow: inset 3px 3px 5px 0px rgba(0, 0, 0, 0.55), inset -3px -3px 5px 0px rgba(255, 255, 255, 0.55);
+    background: $primary-color;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: $p-light-color;
+    border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: $p-dark-color;
+    // background: #555;
+}
+// Scrollbar[end]
+
+//Adaptive
+@media screen and (max-width: 1440px) {
+    main {
+        height: 85vh;
+    }
+    .col {
+        width: 100%;
+    }
+    .createCard {
+        width: 50%;
+    }
+    .modal-card {
+        width: 70%;
+    }
+    header {
+        height: 15vh;
+    }
+    .AIpopup {
+        width: 70%;
+        left: 15%;
+        top: 15vh;
+        &::after {
+            bottom: 0vh;
+        }
+    }
+    .AI-hide-popup {
+        transition: all 2s ease;
+        opacity: 0;
+        top: -30vh;
+    }
+    .light {
+        width: 70%;
+        left: 15%;
+        top: 15vh;
+    }
+    .logo {
+        width: 7%;
+    }
+    .buttons {
+        width: 50%;
+    }
+    .slide-l-enter-active,
+    .slide-l-leave-active,
+    .slide-r-enter-active,
+    .slide-r-leave-active {
+        .btn-back {
+            top: -15vh;
+            transition: unset;
+            position: fixed;
+        }
+    }
+}
+@media screen and (max-width: 768px) {
+    .logo {
+        width: 10%;
+    }
+    .createCard,
+    .buttons {
+        width: 70%;
+    }
+    .btn-back {
+        width: 50px;
+        padding: 0;
+    }
+}
