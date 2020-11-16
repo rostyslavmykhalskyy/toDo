@@ -1,20 +1,27 @@
 <template>
-  <div class="createCard" :class="{ white: create === 'task' }">
+  <div class="createCard" :attribute="create">
     <input
       ref="text"
-      @keydown.enter="buttonFocus()"
       :placeholder="placeholder[create]"
       type="text"
-      @focus="focus = true"
-      @focusout="focus = false"
+      :attribute="create"
+      @keyup.enter="createElem()"
     />
     <button
-      class="btn-icon"
+      class="btn-icon bg-icon"
       @click="createElem()"
       ref="btn"
-      @keyup.enter="createElem()"
+      :attribute="create"
     >
-      <i class="fas fa-plus" :class="{ focus: focus }"></i>
+      <i class="tickIcon"></i>
+    </button>
+    <button
+      v-if="create === 'todo'"
+      class="btn-icon bg-icon"
+      @click="createElemAutoname()"
+      :attribute="create + '-sm'"
+    >
+      <i class="tickIcon"></i>
     </button>
     <transition name="msg">
       <div class="msg" v-if="errorMsg">
@@ -35,8 +42,7 @@ export default {
   data() {
     return {
       errorMsg: null,
-      placeholder: { todo: "Create new note..", task: "Create new task.." },
-      focus: false
+      placeholder: { todo: "Create new note", task: "Create new task" }
     };
   },
   methods: {
@@ -47,7 +53,7 @@ export default {
           case "todo": {
             if (this.$store.getters.uniqueTitle(this.$refs.text.value)) {
               this.$store.commit("ADD_TODO_ELEMENT", this.$refs.text.value);
-              this.$refs.text.value = "";
+              this.$router.push(this.$refs.text.value);
             } else this.errorMsg = "Name is exist";
             break;
           }
@@ -69,8 +75,13 @@ export default {
         }, 1000);
       }
     },
-    buttonFocus() {
-      this.$refs.btn.focus();
+    createElemAutoname() {
+      let i = 1;
+      while (this.$store.getters.uniqueTitle("Note " + i) === false) {
+        i++;
+      }
+      this.$store.commit("ADD_TODO_ELEMENT", "Note " + i);
+      this.$router.push("Note " + i);
     }
   }
 };

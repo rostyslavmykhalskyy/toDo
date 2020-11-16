@@ -3,30 +3,19 @@ import Vuex from "vuex";
 import router from "@/router";
 
 Vue.use(Vuex);
-// historyStates bug with reloading if new value of state will by added
-// manual in store
-// eslint-disable-next-line no-unused-vars
 const historyStates = store => {
   let lastMutation;
   if (localStorage.state) store.replaceState(JSON.parse(localStorage.state));
-  // }
   store.subscribe((mutation, state) => {
     if (
       mutation.type === "EMMIT_HISTORY" &&
       lastMutation !== "UNDO_TODO_ELEM_VIEW" &&
       lastMutation !== "REDO_TODO_ELEM_VIEW" &&
       lastMutation !== "SET_HISTORY"
-      // lastMutation !== "SET_AI_MSG"
     ) {
-      // console.log(lastMutation);
       store.commit("SET_HISTORY", mutation.payload);
-    }
-    //  else if (lastMutation == "SET_AI_MSG") {
-    //   console.log("lol");
-    // }
-    else {
+    } else {
       if (mutation.type !== "SET_AI_MSG") {
-        //   console.log("lol");
         lastMutation = mutation.type;
       }
     }
@@ -38,7 +27,7 @@ export default new Vuex.Store({
   strict: true,
   state: {
     toDoList: [],
-    toDoElemView: { title: "", list: [] },
+    toDoElemView: { title: "", list: [], index: null },
     changesHistory: [],
     changeCounter: -1,
     promisCalback: null,
@@ -47,20 +36,17 @@ export default new Vuex.Store({
       callback: null,
       msg: "",
       answer: false
-    },
-    ai: {
-      msg: "",
-      active: false
     }
   },
   plugins: [historyStates],
   mutations: {
-    SET_AI_MSG(state, payload) {
-      if (payload.msg) Vue.set(state, "ai", payload);
-      else state.ai.active = false;
-    },
     ADD_TODO_ELEMENT(state, toDoName) {
-      state.toDoList.unshift({ title: toDoName, list: [] });
+      state.toDoList.unshift({
+        title: toDoName,
+        list: [],
+        dateStamp: Date.now(),
+        deadline: "N/A"
+      });
     },
     DELETE_TODO_ELEMENT(state, toDoIndex) {
       state.toDoList.splice(toDoIndex, 1);
@@ -75,6 +61,10 @@ export default new Vuex.Store({
             )
           )
         );
+        let index = state.toDoList.findIndex(
+          element => element.title === router.currentRoute.params.id
+        );
+        viewElem = { ...viewElem, index };
         Vue.set(state, "toDoElemView", viewElem);
       }
     },
@@ -88,16 +78,19 @@ export default new Vuex.Store({
     CHANE_NAME(state, newName) {
       Vue.set(state.toDoElemView, "title", newName);
     },
+    CHANE_DEADLINE(state, newDeadline) {
+      Vue.set(state.toDoElemView, "deadline", newDeadline);
+    },
     ADD_TASK_ELEMENT(state, text) {
-      state.toDoElemView.list.unshift({
+      state.toDoElemView.list.push({
         text,
-        complite: false
+        complete: false
       });
     },
-    CHANGE_COMPLITE(state, payload) {
+    CHANGE_COMPLETE(state, payload) {
       Vue.set(
         state.toDoElemView.list[payload.index],
-        "complite",
+        "complete",
         payload.value
       );
     },
@@ -108,11 +101,8 @@ export default new Vuex.Store({
       state.toDoElemView.list.splice(index, 1);
     },
     SAVE_TODO_ELEMENT(state) {
-      let index = state.toDoList.findIndex(
-        element => element.title === router.currentRoute.params.id
-      );
       let copiedObject = JSON.parse(JSON.stringify(state.toDoElemView));
-      Vue.set(state.toDoList, index, copiedObject);
+      Vue.set(state.toDoList, state.toDoElemView.index, copiedObject);
     },
     SET_HISTORY(state, val) {
       let data = JSON.parse(JSON.stringify(val));
@@ -126,8 +116,7 @@ export default new Vuex.Store({
           data
         );
     },
-    // eslint-disable-next-line no-unused-vars
-    EMMIT_HISTORY(state, val) {},
+    EMMIT_HISTORY() {},
     UNDO_TODO_ELEM_VIEW(state) {
       state.changeCounter--;
       Vue.set(
@@ -167,6 +156,8 @@ export default new Vuex.Store({
         element => element.title === router.currentRoute.params.id
       );
       commit("DELETE_TODO_ELEMENT", index);
+      commit("CLEAR_TODO_ELEM_VIEW");
+      commit("CLEAR_HISTORY");
       router.go(-1);
     },
     dialog({ commit }, msg) {

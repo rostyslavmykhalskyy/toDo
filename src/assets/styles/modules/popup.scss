@@ -1,0 +1,28 @@
+////Popup[start]
+.modal {
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color:#eaebf376;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    border: unset;
+}
+.modal-card {
+    @extend %staticShadows;
+    width: 20%;
+    padding: 3vh 1.5%;
+    border-radius: 10px;
+    // z-index: 3;
+    background-color: $back-g-color;
+}
+.modal-card-actions {
+    margin-top: 4vh;
+    display: flex;
+    justify-content: space-around;
+}
+////Popup[end]

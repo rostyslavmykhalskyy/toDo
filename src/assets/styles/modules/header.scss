@@ -1,0 +1,46 @@
+//Header[start]
+.header {
+    width: 100%;
+    top: -15vh;
+    transition: top 1s ease;
+    padding: 16px/1080px*100vh 130px/1920px*100%;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 2;
+    box-sizing: border-box;
+    &__logo {
+        width: 85px;
+        height: 85px;
+        padding: 20px 10px;
+        border-radius: 16px;
+        img {
+            width: 100%;
+        }
+        background-color: $back-g-color;
+    }
+}
+.createCard {
+    width: calc(100% / 3.4);
+    display: flex;
+  
+    input {
+        @extend  %shadows;
+        width: 85%;
+        padding: 1vh 5%;
+        display: block;
+        box-sizing: border-box;
+        border: none;
+        background-color: rgba(0, 0, 0, 0);
+        background-color: $back-g-color;
+
+    }
+    .btn-icon {
+        margin-left: 2.7rem;
+    }
+    button[attribute="todo-sm"]{
+        display: none;
+    }
+}
+//Header[end]

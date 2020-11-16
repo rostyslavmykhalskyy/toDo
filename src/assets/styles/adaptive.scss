@@ -1,0 +1,81 @@
+//Adaptive
+@media screen and (max-width: 1440px) {
+    .createCard {
+        width: 50%;
+    }
+    .logo {
+        width: 7%;
+    }
+    .buttons {
+        width: 25%;
+    }
+}
+@media screen and (max-width: 1080px) {
+    .col {
+        width: 50%;
+    }  
+    .col-z-2{
+        order: 1;
+        margin: 0 auto;
+    }
+    .sticky{
+        top: 0;
+        position: relative;
+    }
+}
+@media screen and (max-width: 768px) {
+    .header{
+        height: 20vh;
+        position: relative;
+        background-color: $back-g-color;
+        box-shadow: 5px 5px 15px #0000001A, -5px -5px 15px #FFFFFFCB;
+        border-radius: 16px;
+    }
+    .buttons {
+        width: 55%;
+    }
+    main{
+        height: 80vh;
+    }
+    .col {
+        width: 100%;
+    }
+    .logo {
+        width: 10%;
+    }
+    .createCard {
+        justify-content: flex-end;
+        button[attribute="todo-sm"]{
+            display: block;
+        }
+        input[attribute='todo'],button[attribute='todo']{
+            display: none;
+        }
+    }
+    .createCard[attribute='task']{
+    width: 100%;
+    }
+    .card__progress{
+        left: -8%;
+    }
+    .content{
+        padding:0vh 6%;
+    }
+    .modal-card{
+        width: 60%;
+    }
+    
+}
+@media screen and (max-width: 768px) and (orientation: landscape){
+    .header{
+        &__logo{
+            width:60px;
+            height: 60px;
+            padding:.5em;
+        }
+        height: 25vh;
+    }
+    main{
+        height: 75vh;
+    }
+}

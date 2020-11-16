@@ -6,8 +6,9 @@
       <div class="col" v-for="(element, index) in toDo" :key="element.title">
         <ToDoElem
           :title="element.title"
-          :list="element.list ? element.list.slice(0, 5) : ''"
+          :list="element.list ? element.list.slice(0, 4) : ''"
           :index="index"
+          :progress="progressPercent(element.list)"
         />
       </div>
     </transition-group>
@@ -27,16 +28,18 @@ export default {
     toDo() {
       return this.$store.state.toDoList;
     }
+  },
+  methods: {
+    progressPercent(list) {
+      let completed = 0;
+      let percent = 0;
+      list.forEach(element => (element.complete ? completed++ : ""));
+      percent = (completed / list.length) * 100;
+      if (percent) {
+        return parseFloat(percent.toFixed(1));
+      } else return 0;
+    }
   }
-  // watch: {
-  //   // Add ask of name and then set_ai_msg
-  //   toDoLength(val, old) {
-  //     console.log(val, old);
-  //     if (!val)
-  //       this.$store.commit("SET_AI_MSG", "Add a new note to get started.");
-  //     else this.$store.commit("SET_AI_MSG", null);
-  //   }
-  // }
 };
 </script>
 <style></style>

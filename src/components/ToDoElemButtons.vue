@@ -1,24 +1,32 @@
 <template>
   <div class="buttons">
-    <button class="btn-succes btn-icon" @click="save()">
+    <!-- <button class="btn-succes btn-icon" @click="save()">
       <i class="fas fa-save"></i>
-    </button>
-    <button class="btn-icon" :disabled="changeCounter == 0" @click="restore()">
+    </button> -->
+    <button
+      class="btn-icon sm-icon"
+      :disabled="changeCounter == 0"
+      @click="restore()"
+    >
       <i class="fas fa-history"></i>
     </button>
-    <button class="btn-icon" :disabled="changeCounter == 0" @click="undo()">
+    <button
+      class="btn-icon sm-icon"
+      :disabled="changeCounter == 0"
+      @click="undo()"
+    >
       <i class="fas fa-undo"></i>
     </button>
     <button
-      class="btn-icon"
+      class="btn-icon sm-icon"
       :disabled="!(changeCounter < historyLength - 1)"
       @click="redo()"
     >
       <i class="fas fa-redo"></i>
     </button>
-    <button class="btn-warning btn-icon" @click="del()">
+    <!-- <button class="btn-warning btn-icon" @click="del()">
       <i class="fas fa-trash-alt"></i>
-    </button>
+    </button> -->
   </div>
 </template>
 
@@ -33,9 +41,6 @@ export default {
     }
   },
   methods: {
-    save() {
-      this.$store.commit("SAVE_TODO_ELEMENT");
-    },
     restore() {
       this.$store.dispatch("dialog", "Restore note?").then(res => {
         if (res) {
@@ -43,11 +48,6 @@ export default {
           this.$store.commit("CLEAR_HISTORY");
         }
       });
-    },
-    del() {
-      this.$store
-        .dispatch("dialog", "Delete note?")
-        .then(res => (res ? this.$store.dispatch("del") : ""));
     },
     undo() {
       this.$store.commit("UNDO_TODO_ELEM_VIEW");

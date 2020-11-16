@@ -1,0 +1,140 @@
+//Animations[start]
+%animation {
+    transition: all 0.2s ease-in-out;
+}
+%staticShadows {
+    box-shadow: 5px 5px 15px #0000001A, -5px -5px 15px #FFFFFFCB;
+    border-radius: 16px;
+}
+
+%shadows {
+    @extend %staticShadows, %animation;
+    &:hover {
+        -webkit-box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+        -moz-box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+        box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+    }
+    &:active,
+    &:focus {
+        @extend %insetStaticShadows;
+        animation: btn-shadow 0.1s ease alternate;
+    }
+    &:disabled {
+        color: #666666;
+        -webkit-box-shadow: unset;
+        -moz-box-shadow: unset;
+        box-shadow: unset;
+        animation: unset;
+    }
+}
+%insetStaticShadows {
+    -webkit-box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+    -moz-box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+    box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+}
+.list-enter-active {
+    transition: 0.4s ease;
+}
+.list-leave-active {
+    transition: opacity 0.4s ease;
+    position: absolute;
+    z-index: -1;
+    top: -23vh;
+    right: 5%;
+}
+.list-enter,
+.list-leave-to {
+    opacity: 0;
+}
+.list-move {
+    transition: 1s ease;
+}
+.msg-enter-active,
+.msg-leave-active {
+    transition: all 0.5s ease;
+}
+.msg-enter,
+.msg-leave-to {
+    opacity: 0;
+    margin-top: 0;
+}
+.slide-l-enter-active,
+.slide-l-leave-active,
+.slide-r-enter-active,
+.slide-r-leave-active {
+    transition-duration: 0.6s;
+    transition-property: transform;
+    transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+}
+
+.slide-l-enter,
+.slide-r-leave-active {
+    transform: translateX(100%);
+}
+
+.slide-l-leave-active,
+.slide-r-enter {
+    transform: translateX(-100%);
+}
+.nav-enter-active,
+.nav-leave-active {
+    transition: opacity 1s ease;
+}
+.nav-enter,
+.nav-leave-to {
+    button,
+    input {
+        -webkit-box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+        -moz-box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+        box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+    }
+    opacity: 0;
+}
+.dialogAnimation-enter-active,
+.dialogAnimation-leave-active {
+    opacity: 1;
+    transition: all .3s ease;
+}
+.dialogAnimation-enter,
+.dialogAnimation-leave-to {
+    opacity: 0;
+}
+
+@keyframes btn-shadow {
+    0% {
+        -webkit-box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+        -moz-box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+        box-shadow: 2px 2px 3px 0px #0000001A, -2px -2px 3px 0px #FFFFFFCB;
+    }
+    25% {
+        -webkit-box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+        -moz-box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+        box-shadow: 0px 0px 0px 0px #0000001A, -0px -0px 0px 0px #FFFFFFCB;
+    }
+    50% {
+        -webkit-box-shadow: unset;
+        -moz-box-shadow: unset;
+        box-shadow: unset;
+    }
+    100% {
+        -webkit-box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+        -moz-box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+        box-shadow: inset -3px -3px 5px 0px #FFFFFFCB, inset 3px 3px 5px 0px #0000001A;
+    }
+}
+
+@keyframes back-anim {
+    0% {
+        left: 0;
+    }
+    25% {
+        left: -25px;
+    }
+    50% {
+        left: 0;
+    }
+    100% {
+        left: -5px;
+    }
+}
+//Animations[end]

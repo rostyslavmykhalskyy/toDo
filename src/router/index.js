@@ -16,9 +16,7 @@ const routes = [
     path: "/:id",
     component: ToDo,
     meta: { transitionName: "slide-r", title: "Note" }
-    // check data exist before loaded
   }
-  //404 page
 ];
 
 const router = new VueRouter({

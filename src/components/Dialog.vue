@@ -7,14 +7,14 @@
       <div class="modal-card-actions">
         <button
           ref="btn0"
-          class="btn-warning btn-icon"
+          class="btn-warning btn-icon sm-icon"
           @click="answerDialog(false)"
         >
           <i class="fas fa-times"></i>
         </button>
         <button
           ref="btn1"
-          class="btn-succes btn-icon"
+          class="btn-succes btn-icon sm-icon"
           @click="answerDialog(true)"
         >
           <i class="fas fa-check"></i>
